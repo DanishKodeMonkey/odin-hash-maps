@@ -10,7 +10,7 @@ A hash map is a collection of buckets, optimally holding either 0 or 1 hash code
 
 - **Buckets**: Storage elements used to store our elements. They function like arrays. For a specific key, we decide which bucket to use for storage through our hash function.
 
-This is possible due to the nature of the hashing process, where different parts of a string are converted to a set of numbers. This is done through a pure function that always outputs the same hash code for the same value. However, this is a one-way process.
+This is possible due to the nature of the hashing process, where different parts of a string are converted to a set of numbers. This is because the hashing function is deterministic, and so it always outputs the same hash code for the same value. However, this is a one-way process.
 
 For instance, taking an example from The Odin Project course, converting the name "Carlos Smith" to a hash could be done by returning the string index at the first letter of both the first and last names, outputting "CS".
 
@@ -53,6 +53,10 @@ To deal with the growing number of hash codes, eventually scaling up the number 
 
 [from The Odin Curriculum](https://www.theodinproject.com/lessons/javascript-hashmap-data-structure)
 
+## TL;DR
+
+Hash maps are a good choice of data structures whenever we need to store a lot of values, but need fast look-up times.
+
 # Check It Out
 
-To test this myself, I created my own implementation of the hash map data structure.
+To test this myself, and gain a deeper understanding of of the data structure, I created my own implementation of the hash map data structure.
