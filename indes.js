@@ -1,8 +1,9 @@
 class HashMap {
-	constructor(capacity = 16) {
+	constructor(capacity = 16, loadFactor = 0.75) {
 		// Establish a hash map with the given number of buckets to start. (default 16)
 		// And fill each bucket with the value null. (it's empty so...)
 		this.buckets = new Array(capacity).fill(null)
+		this.loadFactor = loadFactor
 	}
 
 	checkIndex(index) {
@@ -31,15 +32,33 @@ class HashMap {
 
 	// method to assign a value to a key, if key exist, overwrite.
 	set(key, value) {
+		console.log('set triggered')
 		// Create a index key from the provided key
 		const index = this.hash(key)
+		console.log('Index key generated: ' + index)
 		// See if the index key matches any bucket, if not.
 		if (!this.buckets[index]) {
+			console.log(index + ' not found in buckets')
 			// make a new Linked list
 			this.buckets[index] = new LinkedList()
+			console.log(this.buckets)
 		}
 		// Add a new node to the linked list, containing the node with the key,value pair.
-		this.buckets[index].append(new Node(key, value))
+		console.log('appending ' + this.buckets[index] + ' with new node')
+		this.buckets[index].append(key, value)
+		console.log(this.buckets[index])
+	}
+
+	// method that returns the value assigned to the key, if key is not found return null
+	get(key) {
+		console.log('get() triggered')
+		// get a index key from the provided key
+		// if no buckets contain a list with given key
+		if (!this.buckets[key]) return null
+
+		return this.buckets[key]
+		// key not found in linked list
+		return null
 	}
 }
 
@@ -52,17 +71,25 @@ class LinkedList {
 	}
 
 	// Method for appending a new value into the linked list.
-	append(data) {
-		let newNode = new Node(data)
+	append(key, value) {
+		console.log('Linked list append() triggered')
+		let newNode = new Node(key, value)
+		console.log('Node generated: ' + newNode)
 		if (!this.head) {
+			console.log(newNode + ' is the first node, setting to head.')
 			this.head = newNode
-		}
-		let currentNode = this.head
-		while (currentNode.next) {
-			currentNode = currentNode.next
-		}
-		if (currentNode.next === null) {
+		} else {
+			console.log(newNode + ' is not first node, appending to linked list...')
+			let currentNode = this.head
+			console.log('Checking for head in ' + currentNode)
+			while (currentNode.next) {
+				console.log(currentNode + '.next is true, itterating...')
+				currentNode = currentNode.next
+				console.log('new currentNode ' + currentNode)
+			}
+			console.log('Found end of linked list, appending...')
 			currentNode.next = newNode
+			console.log(newNode)
 		}
 	}
 
@@ -82,7 +109,9 @@ class LinkedList {
 		let currentNode = this.head
 
 		while (currentNode) {
-			if (currentNode.data === value) return true
+			if (currentNode.value === value) return true
+			console.log(currentNode)
+			currentNode = currentNode.next
 		}
 		return false
 	}
@@ -102,5 +131,4 @@ console.log(map)
 map.set('timmy', 'turner')
 map.set('timmy', 'Taylor')
 console.log(map)
-
-console.log(hash1)
+console.log(map.get(4))
