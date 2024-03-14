@@ -71,6 +71,27 @@ class HashMap {
 
 		return true
 	}
+
+	// method removes linked list from hash map from given key(string), returns true if found and removed
+	// false if not found and passed.
+	remove(key) {
+		console.log(`remove(${key}) triggered...`)
+		// generate has key from string
+		let index = this.hash(key)
+
+		console.log('Hash key generated, searching...')
+		// If key is not found.
+		if (!this.buckets[index]) {
+			console.log(key + ' not found in buckets')
+			// make a new Linked list
+			return false
+		}
+		console.log('Key found in: ' + this.buckets[index])
+		console.log('Removing...')
+		this.buckets[index].head = null
+		console.log(`Operation done, result: `)
+		console.log(this.buckets[index])
+	}
 }
 
 // To acommidate possible collisions somewhat, we leverage what we learned from linked arrays
@@ -145,3 +166,4 @@ console.log(map)
 console.log(map.get('timmy'))
 console.log(map.has('timmy'))
 console.log(map.has('tommy'))
+map.remove('timmy')
