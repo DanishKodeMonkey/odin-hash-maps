@@ -35,6 +35,10 @@ class HashMap {
 		console.log('set triggered')
 		// Create a index key from the provided key
 		const index = this.hash(key)
+
+		// check if key is valid
+		this.checkIndex(index)
+
 		console.log('Index key generated: ' + index)
 		// See if the index key matches any bucket, if not.
 		if (!this.buckets[index]) {
@@ -54,6 +58,9 @@ class HashMap {
 		console.log(`get(${key}) triggered`)
 		// generate hash key.
 		const index = this.hash(key)
+
+		// check index key
+		this.checkIndex(index)
 
 		// if no buckets contain a list with given key
 		if (!this.buckets[index]) return null
@@ -79,6 +86,9 @@ class HashMap {
 		// generate has key from string
 		let index = this.hash(key)
 
+		// check index key
+		this.checkIndex(index)
+
 		console.log('Hash key generated, searching...')
 		// If key is not found.
 		if (!this.buckets[index]) {
@@ -91,6 +101,29 @@ class HashMap {
 		this.buckets[index].head = null
 		console.log(`Operation done, result: `)
 		console.log(this.buckets[index])
+	}
+	// method returns the number of stored keys in the hash map
+	length() {
+		console.log('Length() triggered')
+		let count = 0
+
+		for (let i = 0; i < this.buckets.length; i++) {
+			console.log(`Bucket ${i}: ${this.buckets[i]}`)
+			if (!this.buckets[i]) {
+				console.log(`Bucket ${i} is empty, skipping...`)
+				continue
+			}
+			let currentNode = this.buckets[i].head
+			console.log(`Head of linked list in bucket ${i}: ${currentNode}`)
+
+			while (currentNode) {
+				console.log(`Counting in Bucket ${i}`)
+				count += 1
+				currentNode = currentNode.next
+				console.log(count)
+			}
+		}
+		return count
 	}
 }
 
@@ -115,7 +148,7 @@ class LinkedList {
 			let currentNode = this.head
 			console.log('Checking for head in ' + currentNode)
 			while (currentNode.next) {
-				console.log(currentNode + '.next is true, itterating...')
+				console.log(currentNode + '.next is true, iterating...')
 				currentNode = currentNode.next
 				console.log('new currentNode ' + currentNode)
 			}
@@ -166,4 +199,5 @@ console.log(map)
 console.log(map.get('timmy'))
 console.log(map.has('timmy'))
 console.log(map.has('tommy'))
-map.remove('timmy')
+
+console.log(map.length())
