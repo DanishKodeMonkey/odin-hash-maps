@@ -167,6 +167,8 @@ class HashMap {
 		}
 		return keys
 	}
+
+	// method returning an array of all values in hashmap
 	values() {
 		console.log('values() triggered, fetching values...')
 		let values = []
@@ -187,6 +189,32 @@ class HashMap {
 			}
 		}
 		return values
+	}
+
+	// method returning an array containing each key,value pair in hashmap
+	entries() {
+		// final array holding all key, value pairs
+		let arr = []
+
+		for (let i = 0; i < this.buckets.length; i++) {
+			if (!this.buckets[i]) {
+				console.log(`Bucket ${i} is empty...`)
+				continue
+			}
+			let currentNode = this.buckets[i].head
+
+			console.log(`Head of linked list in bucket ${i}: ${currentNode}`)
+
+			while (currentNode) {
+				console.log(`Key found in Bucket ${i}`)
+				arr.push([currentNode.key, currentNode.value])
+				console.log(`Array progress: ${arr}`)
+				currentNode = currentNode.next
+			}
+		}
+		console.log('sending array')
+		console.log(arr)
+		return arr
 	}
 }
 
@@ -263,4 +291,4 @@ console.log(map.get('timmy'))
 console.log(map.has('timmy'))
 console.log(map.has('tommy'))
 
-console.log(map.values())
+console.log(map.entries())
