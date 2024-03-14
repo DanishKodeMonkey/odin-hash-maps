@@ -281,6 +281,8 @@ class Node {
 	}
 }
 
+// testing area below
+
 let map = new HashMap()
 console.log(map)
 
