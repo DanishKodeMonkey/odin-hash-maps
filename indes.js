@@ -125,6 +125,26 @@ class HashMap {
 		}
 		return count
 	}
+
+	// method for nuking the lists in the buckets.
+	clear() {
+		console.log('clear() triggered, nuking some buckets!')
+
+		for (let i = 0; i < this.buckets.length; i++) {
+			if (!this.buckets[i]) {
+				console.log(`Bucket ${i} is empty, and will be spared...`)
+				continue
+			}
+			let currentNode = this.buckets[i].head
+			console.log(
+				`Head of linked list found in bucket ${i}: ${currentNode} ... NUKING!`
+			)
+			this.buckets[i] = null
+			console.log(`Kaboom... Bucket ${i}: ${this.buckets[i]}`)
+		}
+		console.log(`Operation complete, scanning for survivors...`)
+		this.length()
+	}
 }
 
 // To acommidate possible collisions somewhat, we leverage what we learned from linked arrays
@@ -200,4 +220,4 @@ console.log(map.get('timmy'))
 console.log(map.has('timmy'))
 console.log(map.has('tommy'))
 
-console.log(map.length())
+map.clear()
