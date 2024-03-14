@@ -49,16 +49,27 @@ class HashMap {
 		console.log(this.buckets[index])
 	}
 
-	// method that returns the value assigned to the key, if key is not found return null
+	// method that returns the value assigned to the key, if key is not found return null. key -> string
 	get(key) {
-		console.log('get() triggered')
-		// get a index key from the provided key
-		// if no buckets contain a list with given key
-		if (!this.buckets[key]) return null
+		console.log(`get(${key}) triggered`)
+		// generate hash key.
+		const index = this.hash(key)
 
-		return this.buckets[key]
-		// key not found in linked list
-		return null
+		// if no buckets contain a list with given key
+		if (!this.buckets[index]) return null
+
+		return this.buckets[index]
+	}
+	// method returns true or false if key exists in hash map. Key -> string
+	has(key) {
+		console.log(`has(${key}) triggered`)
+
+		// generate hash key
+		const index = this.hash(key)
+
+		if (!this.buckets[index]) return false
+
+		return true
 	}
 }
 
@@ -131,4 +142,6 @@ console.log(map)
 map.set('timmy', 'turner')
 map.set('timmy', 'Taylor')
 console.log(map)
-console.log(map.get(4))
+console.log(map.get('timmy'))
+console.log(map.has('timmy'))
+console.log(map.has('tommy'))
