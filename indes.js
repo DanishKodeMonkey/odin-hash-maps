@@ -145,6 +145,28 @@ class HashMap {
 		console.log(`Operation complete, scanning for survivors...`)
 		this.length()
 	}
+	// method returning all keys of the hashmap
+	keys() {
+		console.log('keys() triggered, fetching keys...')
+		let keys = []
+
+		for (let i = 0; i < this.buckets.length; i++) {
+			if (!this.buckets[i]) {
+				console.log(`Bucket ${i} is empty...`)
+				continue
+			}
+			let currentNode = this.buckets[i].head
+			console.log(`Head of linked list in bucket ${i}: ${currentNode}`)
+
+			while (currentNode) {
+				console.log(`Key found in Bucket ${i}`)
+				keys.push(currentNode.key)
+				currentNode = currentNode.next
+				console.log(`now have ${keys} keys!`)
+			}
+		}
+		return keys
+	}
 }
 
 // To acommidate possible collisions somewhat, we leverage what we learned from linked arrays
@@ -220,4 +242,4 @@ console.log(map.get('timmy'))
 console.log(map.has('timmy'))
 console.log(map.has('tommy'))
 
-map.clear()
+console.log(map.keys())
